@@ -114,7 +114,6 @@ const Globe = ic('Globe'), ArrowLeft = ic('ArrowLeft'), BadgeCheck = ic('BadgeCh
 /* ------------------------------------------------------------------ *
  * Config
  * ------------------------------------------------------------------ */
-const DEFAULT_KEY = 'AQ.Ab8RN6L0hc9ebiD12rd9bui3vpc2x8W8qTQgIioiPJ3HKr42KA';
 const MODEL = 'gemini-3.5-flash-lite';
 const ENGINE_LABEL = 'Gemini 3.5 Flash-Lite';
 const MODEL_CHAIN = [MODEL, 'gemini-3.1-flash-lite', 'gemini-flash-lite-latest', 'gemini-3.5-flash'];
@@ -669,6 +668,8 @@ const UI_STREAMS = {
 Object.entries(UI_STREAMS).forEach(([l, o]) => Object.assign(UI[l], o));
 const UI_APPLIES = { en: 'This appears to apply to you. Read the official text to confirm.', hi: 'यह आप पर लागू होता प्रतीत होता है। पुष्टि के लिए आधिकारिक पाठ पढ़ें।', bn: 'এটি আপনার ক্ষেত্রে প্রযোজ্য বলে মনে হচ্ছে। নিশ্চিত হতে সরকারি লেখা পড়ুন।', te: 'ఇది మీకు వర్తించినట్లు కనిపిస్తోంది. నిర్ధారణ కోసం అధికారిక పాఠం చదవండి.', ta: 'இது உங்களுக்குப் பொருந்துவதாகத் தெரிகிறது. உறுதி செய்ய அதிகாரப்பூர்வ உரையைப் படியுங்கள்.' };
 Object.entries(UI_APPLIES).forEach(([l, v]) => { UI[l].simApplies = v; });
+const UI_ADD_KEY = { en: 'Add Gemini key', hi: 'Gemini कुंजी जोड़ें', bn: 'Gemini কী যোগ করুন', te: 'Gemini కీ జోడించండి', ta: 'Gemini சாவியைச் சேர்' };
+Object.entries(UI_ADD_KEY).forEach(([l, v]) => { UI[l].addKey = v; });
 
 // the four cards of the detail view change meaning with the document type
 const BENTO = {
@@ -1498,6 +1499,7 @@ async function geminiOnce(apiKey, model, parts, ms, opts) {
   }
 }
 async function callGemini(apiKey, parts, timeoutMs = 14000, opts = {}) {
+  if (!String(apiKey || '').trim()) throw new Error('API key not added');
   const deadline = Date.now() + timeoutMs * 2;
   const order = MODEL_CHAIN.map((_, i) => MODEL_CHAIN[(geminiRoute.idx + i) % MODEL_CHAIN.length]);
   let lastErr = new Error('No model available');
@@ -1825,6 +1827,7 @@ const SILENT_URL = URL.createObjectURL(pcmToWav(new Uint8Array(480), 24000));
 // one request per script and voice; finished audio is reused so replays cost no quota
 const ttsCache = new Map();
 async function requestSpeech(apiKey, text, voiceName) {
+  if (!String(apiKey || '').trim()) throw new Error('API key not added');
   let lastErr = new Error('No voice model available');
   for (const model of TTS_MODELS) {
     for (let attempt = 0; attempt < 2; attempt++) {
@@ -3636,7 +3639,7 @@ function KeyModal({ apiKey, setApiKey, onClose, toast, t }) {
         {msg(status, `✓ Gemini connected · ${geminiRoute.lastModel || MODEL}`)}
         <div className="flex flex-wrap gap-2 mt-3">
           <button onClick={test} className={BTN_SOFT}>Test Gemini</button>
-          <button onClick={() => setVal(DEFAULT_KEY)} className={`${BTN} px-3 py-2 ${T3}`}>Reset default</button>
+          <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" className={`${BTN} px-3 py-2 text-[#0a84ff]`}>Get a key <External size={13} /></a>
         </div>
         <div className="h-px my-5 bg-black/[0.07] dark:bg-white/[0.1]" />
         <label className={`text-[12px] font-medium ${T2}`}>Data.gov.in OGD API key (sent as the api-key parameter OGD requires)</label>
@@ -3668,7 +3671,7 @@ const parseHash = () => {
 function App() {
   const [theme, setTheme] = useState(() => lsGet('jsTheme') || 'dark');
   const [lang, setLang] = useState(() => (UI[lsGet('jsLang')] ? lsGet('jsLang') : 'en'));
-  const [apiKey, setApiKey] = useState(() => lsGet('jsGeminiKey') || DEFAULT_KEY);
+  const [apiKey, setApiKey] = useState(() => lsGet('jsGeminiKey') || '');
   const [userDocs, setUserDocs] = usePersist('jsUserDocs', []);
   const [ogdDocs, setOgdDocs] = usePersist('jsOGDDocs', []);
   const [ogdBusy, setOgdBusy] = useState(false);
@@ -3848,8 +3851,8 @@ function App() {
           </span>
         </button>
         <button onClick={() => setKeyOpen(true)} aria-label="AI engine settings" className={`${BTN_SOFT} !px-2.5 lg:!px-3.5`}>
-          <span className={`w-1.5 h-1.5 rounded-full ${engine === 'busy' ? 'bg-[#0a84ff] pulse-dot' : engine === 'fallback' ? 'bg-[#ff9f0a]' : 'bg-[#30d158]'}`} />
-          <span className="hidden lg:inline">Engine</span><KeyIc size={14} className="lg:hidden" />
+          <span className={`w-1.5 h-1.5 rounded-full ${engine === 'busy' ? 'bg-[#0a84ff] pulse-dot' : engine === 'fallback' || !apiKey ? 'bg-[#ff9f0a]' : 'bg-[#30d158]'}`} />
+          {apiKey ? <><span className="hidden lg:inline">Engine</span><KeyIc size={14} className="lg:hidden" /></> : <><KeyIc size={14} /><span>{t('addKey')}</span></>}
         </button>
       </header>
 

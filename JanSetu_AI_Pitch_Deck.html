@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JanSetu AI Pitch Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  /* 13.333in x 7.5in is landscape 16:9 */
+  @page { size: 13.3333in 7.5in; margin: 0; }
+
+  :root {
+    --bg: #07080a; --glass: rgba(255,255,255,.05); --line: rgba(255,255,255,.12);
+    --t1: #f5f5f7; --t2: rgba(245,245,247,.72); --t3: rgba(245,245,247,.5);
+    --green: #30d158; --blue: #0a84ff; --amber: #ff9f0a; --indigo: #5e5ce6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, "Noto Sans", system-ui, sans-serif; color: var(--t1); -webkit-font-smoothing: antialiased; }
+
+  .slide {
+    position: relative; width: 1280px; height: 720px; margin: 24px auto; padding: 44px 56px 46px; overflow: hidden;
+    display: flex; flex-direction: column; background-color: var(--bg);
+    background-image:
+      radial-gradient(ellipse 620px 380px at 88% -6%, rgba(94,92,230,.30), transparent 70%),
+      radial-gradient(ellipse 560px 360px at 4% 104%, rgba(10,132,255,.20), transparent 70%);
+    page-break-after: always; break-after: page;
+  }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+
+  .badge { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: .09em; color: var(--t1); background: var(--glass); border: 1px solid var(--line); box-shadow: inset 0 1px 0 rgba(255,255,255,.14); }
+  .badge i { width: 7px; height: 7px; border-radius: 50%; background: var(--c, var(--blue)); }
+  h2 { margin-top: 13px; font-size: 35px; line-height: 1.12; font-weight: 700; letter-spacing: -.022em; }
+  .lede { margin-top: 7px; font-size: 16px; line-height: 1.42; color: var(--t2); max-width: 1040px; }
+
+  .card { position: relative; padding: 21px 22px; border-radius: 22px; background: var(--glass); border: 1px solid var(--line); box-shadow: inset 0 1px 0 rgba(255,255,255,.13); min-width: 0; }
+  .card { display: flex; flex-direction: column; }
+  .card ul { flex: 1; align-content: space-evenly; }
+  .s1 .card { justify-content: center; }
+  .s5 .card { justify-content: flex-start; }
+  .card h3 { font-size: var(--h3, 18.5px); line-height: 1.22; font-weight: 700; letter-spacing: -.012em; }
+  .card p, .card li { font-size: var(--fs, 14px); line-height: 1.43; color: var(--t2); }
+  .card ul { list-style: none; margin-top: var(--ulm, 10px); display: grid; gap: var(--gap, 8px); }
+  .card li { padding-left: 15px; position: relative; }
+  .card li::before { content: ''; position: absolute; left: 0; top: .52em; width: 6px; height: 6px; border-radius: 50%; background: var(--c, var(--blue)); }
+  .stat { font-size: var(--stat, 40px); line-height: 1; font-weight: 800; letter-spacing: -.03em; color: var(--c, var(--blue)); }
+  .kicker { font-size: 11.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--c, var(--blue)); }
+  .icon { width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center; font-size: 21px; background: color-mix(in srgb, var(--c, var(--blue)) 20%, transparent); margin-bottom: 11px; }
+  .grid { display: grid; gap: 16px; flex: 1; min-height: 0; margin-top: 19px; }
+  .g2 { grid-template-columns: repeat(2, 1fr); } .g3 { grid-template-columns: repeat(3, 1fr); } .g4 { grid-template-columns: repeat(4, 1fr); }
+  code { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; font-size: .9em; color: var(--t1); }
+  .green { --c: var(--green); } .blue { --c: var(--blue); } .amber { --c: var(--amber); } .indigo { --c: var(--indigo); }
+  .foot { position: absolute; left: 56px; right: 56px; bottom: 17px; display: flex; justify-content: space-between; gap: 24px; font-size: 10.5px; color: var(--t3); }
+  .strip { margin-top: 13px; padding: 12px 18px; border-radius: 15px; background: var(--glass); border: 1px solid var(--line); font-size: 13px; line-height: 1.42; color: var(--t2); }
+  .strip b { color: var(--t1); font-weight: 600; }
+
+  /* slide 1 */
+  .hero { font-size: 116px; line-height: 1; font-weight: 800; letter-spacing: -.045em; margin-top: 24px; }
+  .hero span { background: linear-gradient(95deg, #5e5ce6, #0a84ff 60%, #30d158); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sub { margin-top: 15px; font-size: 21px; line-height: 1.38; font-weight: 500; color: var(--t2); max-width: 1090px; }
+  .team { margin-top: 13px; font-size: 14.5px; font-weight: 500; color: var(--t1); }
+
+  /* slide 4 */
+  .flow { display: grid; grid-template-columns: 1fr 34px 1fr 34px 1fr; align-items: stretch; margin-top: 17px; flex: 1; min-height: 0; }
+  .arrow { display: grid; place-items: center; color: var(--t3); font-size: 22px; }
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 12px; }
+  .metric { padding: 11px 15px; border-radius: 15px; background: var(--glass); border: 1px solid var(--line); }
+  .metric b { display: block; font-size: 23px; font-weight: 800; letter-spacing: -.02em; color: var(--c); }
+  .metric span { font-size: 11.5px; color: var(--t2); }
+
+  /* slide 7 */
+  .who { font-size: 12.5px; font-weight: 600; color: var(--c); margin-top: 4px; }
+  .quote { font-style: italic; }
+
+  /* slide 8 */
+  table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 16px; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); background: var(--glass); }
+  td { padding: 21px 22px; font-size: 16.5px; line-height: 1.38; color: var(--t2); vertical-align: middle; border-top: 1px solid rgba(255,255,255,.08); }
+  tr:first-child td { border-top: 0; }
+  td:first-child { width: 300px; font-weight: 700; color: var(--t1); font-size: 17.5px; }
+  td:nth-child(2) { width: 104px; font-size: 25px; font-weight: 800; color: var(--c); white-space: nowrap; }
+  .close { margin-top: auto; padding-top: 14px; font-size: 35px; line-height: 1.16; font-weight: 800; letter-spacing: -.024em; }
+  .close span { background: linear-gradient(95deg, #5e5ce6, #0a84ff 55%, #30d158); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  .s1 { --stat: 58px; --h3: 22px; --fs: 16px; }
+  .s2 { --h3: 22px; --fs: 18px; --gap: 13px; --ulm: 14px; --stat: 46px; }
+  .s3 { --h3: 20px; --fs: 16.5px; --gap: 11px; --ulm: 13px; }
+  .s4 { --h3: 20px; --fs: 16px; --gap: 10px; --ulm: 12px; }
+  .s5 { --h3: 24px; --fs: 18px; --gap: 14px; --ulm: 15px; }
+  .s6 { --h3: 23px; --fs: 18px; --gap: 13px; --ulm: 14px; --stat: 48px; }
+  .s7 { --h3: 26px; --fs: 18px; --gap: 13px; --ulm: 16px; }
+  .s7 .who { font-size: 14px; }
+  .s1 .team { font-size: 16px; }
+
+  @media print {
+    .hero span { background: none; -webkit-text-fill-color: #0a84ff; color: #0a84ff; }
+    .close span { background: none; -webkit-text-fill-color: #0a84ff; color: #0a84ff; }
+    html, body { background: var(--bg); width: 1280px; }
+    .slide { margin: 0; text-rendering: geometricPrecision; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="slide s1">
+  <div class="badge indigo"><i></i>CIVIC INTELLIGENCE ENGINE • GEN AI BUILDATHON 2026</div>
+  <div class="hero">JanSetu <span>AI</span></div>
+  <p class="sub">Decoding India’s Complex Welfare Schemes, Gazette Notifications &amp; Municipal Bylaws into Plain-Language Regional Voice, Dynamic Simulators &amp; SHA-256 Citizen Receipts.</p>
+  <p class="team">Engineered &amp; Presented by Dev Agarwal, Shaurya Tyagi &amp; Ishit Goyal • First-Year B.Tech, IIIT Allahabad</p>
+  <div class="grid g3" style="margin:26px 0 22px">
+    <div class="card blue"><div class="stat">2.8 lakh+</div><h3 style="margin-top:9px">Live Government Resources</h3><p style="margin-top:4px">Searchable on Data.gov.in, plus 11 built-in documents across 4 document types</p></div>
+    <div class="card green"><div class="stat">5</div><h3 style="margin-top:9px">Major Languages</h3><p style="margin-top:4px">English, हिन्दी, বাংলা, தமிழ், తెలుగు across interface, citizen cards and narration</p></div>
+    <div class="card amber"><div class="stat">100%</div><h3 style="margin-top:9px">Client-Side &amp; Live API</h3><p style="margin-top:4px">No backend and no fabricated documents, with Web Crypto SHA-256 receipts</p></div>
+  </div>
+  <div class="foot"><span>Built with React 18, Google Gemini Flash Agent Pipeline (3.5 Flash-Lite with multi-model failover), Web Speech API &amp; Tailwind CSS.</span><span>1 / 8</span></div>
+</section>
+
+<!-- 2 -->
+<section class="slide s2">
+  <div class="badge amber"><i></i>THE PROBLEM</div>
+  <h2>The 3 Compounding Barriers to Welfare &amp; Civic Rights</h2>
+  <div class="grid g3">
+    <div class="card indigo">
+      <div class="icon">⚖️</div>
+      <h3>Bureaucratic Jargon &amp; Legal Obscurity</h3>
+      <ul>
+        <li>Official gazette circulars and bylaws are written in dense statutory language for officials, not citizens.</li>
+        <li>People struggle to tell whether an income, turnover or age threshold applies to them.</li>
+        <li>Rules sit across central, state and municipal sources, with no single plain-language view.</li>
+      </ul>
+    </div>
+    <div class="card blue">
+      <div class="icon">🗣️</div>
+      <div class="stat">10.6%</div>
+      <h3 style="margin-top:7px">Regional Linguistic Exclusion</h3>
+      <ul>
+        <li>Only about 10.6% of Indians reported speaking English, so English-first portals exclude most citizens.</li>
+        <li>Literacy was 74.04%: about 1 in 4 people cannot be served by text alone.</li>
+        <li>Lack of spoken-word access also locks out visually impaired beneficiaries.</li>
+      </ul>
+    </div>
+    <div class="card green">
+      <div class="icon">🏦</div>
+      <h3>Last-Mile Administrative Leakage &amp; DBT Stalls</h3>
+      <ul>
+        <li>An eligible citizen’s DBT payment can still bounce if Aadhaar is not mapped to the bank account on the NPCI mapper.</li>
+        <li>Only banks can change that mapping, and many citizens never learn this is the problem.</li>
+        <li>Middlemen exploit the information gap by charging illegal “approval fees”.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Sources: Census of India 2011 (English speakers across first, second and third language; effective literacy rate); NPCI Aadhaar Payments Bridge SOP.</span><span>2 / 8</span></div>
+</section>
+
+<!-- 3 -->
+<section class="slide s3">
+  <div class="badge blue"><i></i>STATUTORY INGESTION SPECTRUM</div>
+  <h2>Comprehensive Civic Coverage</h2>
+  <p class="lede">Scheme finders stop at welfare schemes. JanSetu AI processes four statutory document types, and each one gets its own cards, actions and checks.</p>
+  <div class="grid g4">
+    <div class="card green"><div class="icon">🏛️</div><h3>Welfare Schemes</h3><div class="kicker" style="margin-top:6px">DBT &amp; Subsidies</div><ul><li>PM-Kisan, PM Surya Ghar, Post-Matric Scholarship, PM Vishwakarma</li><li>Benefits, eligibility, document checklist, filing roadmap</li><li>Zero-Fee Shield and DBT help</li></ul></div>
+    <div class="card amber"><div class="icon">📜</div><h3>Regulatory Gazette Notifications</h3><div class="kicker" style="margin-top:6px">Orders &amp; Amnesties</div><ul><li>Rajasthan Amnesty Scheme 2026: penalty and interest waiver</li><li>Relief, affected entities, compliance checklist</li><li>Deadline pill read from the document</li></ul></div>
+    <div class="card indigo"><div class="icon">🏙️</div><h3>Municipal Bylaws &amp; Local Civic Laws</h3><div class="kicker" style="margin-top:6px">City Rules</div><ul><li>Bengaluru Solid Waste Bye-laws: segregation and bulk generators</li><li>Fines, jurisdiction, inspection checklist</li><li>Know Your Rights notice guidance</li></ul></div>
+    <div class="card blue"><div class="icon">📝</div><h3>Policy Drafts for Consultation</h3><div class="kicker" style="margin-top:6px">Public Feedback</div><ul><li>NITI Aayog Draft Battery Swapping Policy for electric vehicles</li><li>Proposed incentives, stakeholders, key clauses</li><li>Editable public feedback letter</li></ul></div>
+  </div>
+  <div class="foot"><span>Any new PDF, DOCX or TXT can be analysed in the Document Studio, with auto-detected or chosen document type.</span><span>3 / 8</span></div>
+</section>
+
+<!-- 4 -->
+<section class="slide s4">
+  <div class="badge indigo"><i></i>TECHNICAL ARCHITECTURE &amp; AGENTIC EXECUTION • 25-POINT RUBRIC PILLAR</div>
+  <h2>AI Reasoning &amp; the 3-Stage Agent Pipeline</h2>
+  <div class="flow">
+    <div class="card indigo"><div class="kicker">Stage 1</div><h3 style="margin-top:4px">Statutory Taxonomy Agent</h3><ul><li>Classifies type: <code>scheme</code>, <code>notification</code>, <code>bylaw</code>, <code>policy</code></li><li>Extracts the administering ministry, category, official portal and named authority</li><li>Reads closing dates with the source words that state them</li></ul></div>
+    <div class="arrow">→</div>
+    <div class="card blue"><div class="kicker">Stage 2</div><h3 style="margin-top:4px">Dynamic Rule Graph Tool</h3><ul><li>Turns clauses into interactive rule objects, not static bullet points</li><li>Income and age limits become live numeric checks</li><li>Extracts ₹ amounts and isolates disqualification clauses</li></ul></div>
+    <div class="arrow">→</div>
+    <div class="card green"><div class="kicker">Stage 3</div><h3 style="margin-top:4px">Reflection &amp; Multilingual Guardrail</h3><ul><li>Checks amounts, rule quotes, dates, helplines and emails directly against the source text</li><li>Removes what it cannot find; rejects incomplete cards</li><li>Five-language card and spoken brief</li></ul></div>
+  </div>
+  <div class="metrics">
+    <div class="metric green"><b>6–18 s</b><span>Five-language card, across test runs</span></div>
+    <div class="metric blue"><b>1 request</b><span>One streamed call, stages marked live</span></div>
+    <div class="metric amber"><b>≈2,400</b><span>Tokens for a one-page document</span></div>
+    <div class="metric indigo"><b>4 models</b><span>Retry and failover on 503 or 429</span></div>
+  </div>
+  <div class="strip" style="margin-bottom:12px"><b>Stack:</b> REST-based Google Gemini Flash with schema-enforced JSON, client-side document reading (pdf.js and mammoth.js), and a deterministic statutory rule engine when the API is unavailable.</div>
+  <div class="foot"><span>Measured in the live app during testing; times vary with document length and Google’s load.</span><span>4 / 8</span></div>
+</section>
+
+<!-- 5 -->
+<section class="slide s5">
+  <div class="badge green"><i></i>EXCLUSIVE PRODUCT INNOVATIONS</div>
+  <h2>What Sets JanSetu Apart</h2>
+  <div class="grid g2">
+    <div class="card green"><h3>“Do I Qualify?” Dynamic Rule Simulator</h3><ul><li>Renders legal clauses as live iOS-style switches and income or age inputs.</li><li>Computes an instant Citizen Readiness Score (0–100%) and lists what is still missing.</li></ul></div>
+    <div class="card blue"><h3>Apple Control Center Voice Engine</h3><ul><li>Browser voices by default, with optional Gemini voices: English male or female, regional female.</li><li>Playback scrubber, speed switching (0.75x–1.5x) and a live highlighted transcript.</li></ul></div>
+    <div class="card amber"><h3>Public Comment &amp; Objection Dispatch</h3><ul><li>Generates a structured, editable representation letter for draft policies, citing their proposed clauses.</li><li>Copy it, or open it in email when a verified address is in the source.</li></ul></div>
+    <div class="card indigo"><h3>Cryptographic SHA-256 Citizen Receipts</h3><ul><li>Generates <code>JS-SHA256-…</code> reference IDs with the browser’s Web Crypto API.</li><li>Tied to the document, the time and the readiness score; works with no connectivity.</li></ul></div>
+  </div>
+  <div class="foot"><span>All four run in the browser, with no server of our own.</span><span>5 / 8</span></div>
+</section>
+
+<!-- 6 -->
+<section class="slide s6">
+  <div class="badge green"><i></i>CIVIC INTEGRITY &amp; LAST-MILE DELIVERY • 25-POINT IMPACT PILLAR</div>
+  <h2>Civic Trust &amp; Anti-Exploitation Shield</h2>
+  <div class="grid g3">
+    <div class="card green"><div class="icon">🛡️</div><div class="stat">₹0</div><h3 style="margin-top:7px">Zero-Fee Anti-Bribery Shield</h3><ul><li>On every welfare scheme: <span class="quote">“Official Application Fee: ₹0. No middleman can guarantee approval.”</span></li><li>One-touch links to Helpline 14555 (National Health Authority, PM-JAY) and CPGRAMS (<code>pgportal.gov.in</code>).</li></ul></div>
+    <div class="card amber"><div class="icon">🏦</div><div class="stat">4 checks</div><h3 style="margin-top:7px">DBT / NPCI Seeding Diagnostic</h3><ul><li>Guided self-check of Aadhaar-bank mapping, account match, KYC and name match.</li><li>Shows the exact fix for each gap, targeting a known cause of DBT payment failure.</li></ul></div>
+    <div class="card blue"><div class="icon">📲</div><div class="stat">.txt</div><h3 style="margin-top:7px">Low-Connectivity Offline Access</h3><ul><li>One-click WhatsApp sharing, sized for Indian-language text, with the full brief copied when needed.</li><li>Plain-text Citizen Brief needs no mobile data to read.</li></ul></div>
+  </div>
+  <div class="foot"><span>Bylaw pages show Know Your Rights guidance instead of the ₹0 banner, because bylaws and amnesties do involve fees.</span><span>6 / 8</span></div>
+</section>
+
+<!-- 7 -->
+<section class="slide s7">
+  <div class="badge blue"><i></i>ENGINEERING TEAM &amp; CODE OWNERSHIP</div>
+  <h2>Indian Institute of Information Technology, Allahabad</h2>
+  <p class="lede">First-Year B.Tech Undergraduates • Built During the Hackathon</p>
+  <div class="grid g3">
+    <div class="card indigo"><h3>Dev Agarwal</h3><div class="who">Lead AI &amp; Agentic Systems Architect</div><ul><li>Gemini Flash agent pipeline and schema-enforced JSON extraction</li><li>Source-checking guardrails against hallucinations</li><li>Retry and multi-model failover logic</li></ul></div>
+    <div class="card blue"><h3>Shaurya Tyagi</h3><div class="who">Full-Stack &amp; Apple Design Systems Engineer</div><ul><li>React 18 multi-page client state router</li><li>Apple Liquid Glass system, with inset borders to prevent clipping</li><li>Web Speech API voice selection and the Control Center audio flyout</li></ul></div>
+    <div class="card green"><h3>Ishit Goyal</h3><div class="who">Civic Data, Security &amp; Core Infrastructure Engineer</div><ul><li>Deterministic statutory fallback engine</li><li>Web Crypto SHA-256 citizen receipts</li><li>Client-side PDF and DOCX reading; Data.gov.in / OGD API integration</li></ul></div>
+  </div>
+  <div class="strip" style="margin-bottom:12px"><b>Ownership statement:</b> <span class="quote">“JanSetu AI was built during the hackathon window using AI-assisted development. Every team member can explain the architecture, data flow and underlying code.”</span></div>
+  <div class="foot"><span>Single-file application: open the source and inspect any feature.</span><span>7 / 8</span></div>
+</section>
+
+<!-- 8 -->
+<section class="slide s8">
+  <div class="badge amber"><i></i>EVALUATION RUBRIC SCORECARD</div>
+  <h2>Engineered for 100/100</h2>
+  <table>
+    <tr class="blue"><td>Technical Architecture</td><td>20 pts</td><td>Clean single-file bundle with no build step or backend, on native Web Crypto and Speech APIs.</td></tr>
+    <tr class="indigo"><td>AI Reasoning &amp; Agentic Depth</td><td>25 pts</td><td>3-stage streamed pipeline, dynamic rule objects, source-checking guardrail, multi-model 429 and 503 failover.</td></tr>
+    <tr class="green"><td>Problem Impact &amp; USP</td><td>25 pts</td><td>4-document stream, anti-bribery shield, NPCI mapping diagnostic, 5-language coverage.</td></tr>
+    <tr class="amber"><td>Live Demonstration &amp; Robustness</td><td>30 pts</td><td>No fabricated documents, live Data.gov.in and Gemini calls, ASCII Unicode regexes, graceful statutory fallback.</td></tr>
+  </table>
+  <div class="strip" style="margin-top:16px; font-size:16px; padding:15px 20px"><b>Next Horizon:</b> Direct integration with DigiLocker and API Setu for automated, one-click citizen entitlement fulfillment.</div>
+  <div class="close"><span>JanSetu AI:</span> Transforming India’s statutory maze into citizen empowerment.</div>
+  <div class="foot" style="position:static; margin-top:12px"><span>Dev Agarwal • Shaurya Tyagi • Ishit Goyal • IIIT Allahabad</span><span>8 / 8</span></div>
+</section>
+
+</body>
+</html>
