@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+
+# Local editor and tool settings
+.claude/
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+
+# Secrets and local environment files
+.env*
+
+# Temporary build outputs
+dist/
+build/
+tmp/
+.cache/
