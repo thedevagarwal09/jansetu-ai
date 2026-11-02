@@ -13,6 +13,9 @@ node_modules/
 # Secrets and local environment files
 .env*
 
+# Demo video (hosted on YouTube)
+JanSetu_AI_Demo.mp4
+
 # Temporary build outputs
 dist/
 build/

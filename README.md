@@ -12,7 +12,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-0a84ff)](LICENSE)
 [![Languages](https://img.shields.io/badge/Languages-English_%2B_4_Indic-5e5ce6)](#key-innovations)
 
-**[Live Demo](https://thedevagarwal09.github.io/jansetu-ai/)** • **[Slide Deck (PDF)](JanSetu_AI_Pitch_Deck.pdf)** • **[Architecture](#system-architecture--data-flow)** • **[Rubric Alignment](#hackathon-rubric-alignment)**
+**[Live Demo](https://thedevagarwal09.github.io/jansetu-ai/)** • **[Demo Video](https://youtu.be/0aTyTFqn6UU)** • **[Slide Deck (PDF)](JanSetu_AI_Pitch_Deck.pdf)** • **[Architecture](#system-architecture--data-flow)** • **[Rubric Alignment](#hackathon-rubric-alignment)**
 
 </div>
 
