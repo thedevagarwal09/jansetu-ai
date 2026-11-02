@@ -3588,13 +3588,14 @@ function LangMenu({ lang, setLang, t, onClose }) {
 }
 
 function KeyModal({ apiKey, setApiKey, onClose, toast, t }) {
-  const [val, setVal] = useState(apiKey);
+  // the Gemini box always opens empty; a saved key is never shown back
+  const [val, setVal] = useState('');
   const [ogd, setOgd] = useState(() => ogdKey());
   const [status, setStatus] = useState('');
   const [ogdStatus, setOgdStatus] = useState('');
   const test = async () => {
     setStatus('testing');
-    try { await callGemini(val, [{ text: 'Return strict JSON: {"ok": true}' }]); setStatus('ok'); }
+    try { await callGemini(val.trim() || apiKey, [{ text: 'Return strict JSON: {"ok": true}' }]); setStatus('ok'); }
     catch (e) { setStatus('fail:' + e.message); }
   };
   const testOgd = async () => {
@@ -3606,17 +3607,23 @@ function KeyModal({ apiKey, setApiKey, onClose, toast, t }) {
     setOgdStatus(r === null ? 'fail' : 'ok');
   };
   const save = () => {
-    setApiKey(val.trim());
-    lsSet('jsGeminiKey', val.trim());
+    if (val.trim()) { setApiKey(val.trim()); lsSet('jsGeminiKey', val.trim()); }
     if (ogd.trim() && ogd.trim() !== OGD_PUBLIC_KEY) lsSet('jsOGDKey', ogd.trim());
     else { try { localStorage.removeItem('jsOGDKey'); } catch (e) {} }
     toast('API keys saved');
     onClose();
   };
-  const field = (value, onChange, Icon) => (
+  const removeKey = () => {
+    setApiKey('');
+    setVal('');
+    setStatus('');
+    try { localStorage.removeItem('jsGeminiKey'); } catch (e) {}
+    toast('Gemini key removed');
+  };
+  const field = (value, onChange, Icon, placeholder) => (
     <div className={`mt-1.5 flex items-center gap-2 rounded-xl px-3 py-2.5 ${CHIP}`}>
       <Icon size={15} className={T3} />
-      <input value={value} onChange={e => onChange(e.target.value)} type="password" spellCheck={false} className={`flex-1 min-w-0 bg-transparent outline-none text-[13px] font-mono ${T1}`} />
+      <input value={value} onChange={e => onChange(e.target.value)} type="password" autoComplete="new-password" spellCheck={false} placeholder={placeholder} aria-label={placeholder} className={`flex-1 min-w-0 bg-transparent outline-none text-[13px] font-mono ${T1} placeholder:font-sans placeholder:text-zinc-400 dark:placeholder:text-white/35`} />
     </div>
   );
   const msg = (st, ok) => st && (
@@ -3635,15 +3642,16 @@ function KeyModal({ apiKey, setApiKey, onClose, toast, t }) {
           </div>
         </div>
         <label className={`text-[12px] font-medium ${T2}`}>Gemini API key (sent as x-goog-api-key header)</label>
-        {field(val, setVal, KeyIc)}
+        {field(val, setVal, KeyIc, apiKey ? 'A key is saved. Paste a new one to replace it' : 'Paste your Gemini API key')}
         {msg(status, `✓ Gemini connected · ${geminiRoute.lastModel || MODEL}`)}
         <div className="flex flex-wrap gap-2 mt-3">
           <button onClick={test} className={BTN_SOFT}>Test Gemini</button>
           <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" className={`${BTN} px-3 py-2 text-[#0a84ff]`}>Get a key <External size={13} /></a>
+          {apiKey && <button onClick={removeKey} className={`${BTN} px-3 py-2 text-[#d63a30] dark:text-[#ff6961]`}>Remove saved key</button>}
         </div>
         <div className="h-px my-5 bg-black/[0.07] dark:bg-white/[0.1]" />
         <label className={`text-[12px] font-medium ${T2}`}>Data.gov.in OGD API key (sent as the api-key parameter OGD requires)</label>
-        {field(ogd, setOgd, Database)}
+        {field(ogd, setOgd, Database, 'Data.gov.in API key')}
         {msg(ogdStatus, '✓ Data.gov.in connected')}
         <div className="flex flex-wrap gap-2 mt-3">
           <button onClick={testOgd} className={BTN_SOFT}>Test Data.gov.in</button>
